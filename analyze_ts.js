@@ -166,23 +166,21 @@ function analyzeFile(filePath) {
             const propsType = reactFCMatch[2];
 
             if (!hasContent) {
-                report += `\n${'='.repeat(70)}\n`;
-                report += `📁 FILE: ${relativePath}\n`;
-                report += `${'='.repeat(70)}\n`;
+                report += `FILE: ${relativePath}\n`;
                 hasContent = true;
             }
 
-            report += `\n  🧩 COMPONENT: ${name}\n`;
-            report += `  📍 Location: Line ${i + 1}\n`;
-            report += `  📋 Type: React Functional Component (React.FC)\n`;
+            report += `\n   COMPONENT: ${name}\n`;
+            report += `   Location: Line ${i + 1}\n`;
+            report += `   Type: React Functional Component (React.FC)\n`;
             
             if (jsdocDescription) {
-                report += `  📝 Description: ${jsdocDescription}\n`;
+                report += `   Description: ${jsdocDescription}\n`;
             }
 
             if (typeDefinitions[propsType]) {
                 const def = typeDefinitions[propsType];
-                report += `  📥 INPUTS (Props: ${propsType}):\n`;
+                report += `   INPUTS (Props: ${propsType}):\n`;
                 if (def.props.length > 0) {
                     for (const prop of def.props) {
                         const optional = prop.optional ? ' (optional)' : '';
@@ -192,11 +190,11 @@ function analyzeFile(filePath) {
                     report += `      • (empty interface)\n`;
                 }
             } else {
-                report += `  📥 INPUTS (Props): ${propsType}\n`;
+                report += `   INPUTS (Props): ${propsType}\n`;
             }
             
-            report += `  📤 OUTPUT: JSX.Element\n`;
-            report += `  🎨 DISPLAYS: Renders React UI component\n`;
+            report += `   OUTPUT: JSX.Element\n`;
+            report += `   DISPLAYS: Renders React UI component\n`;
             totalComponents++;
             continue;
         }
@@ -216,18 +214,16 @@ function analyzeFile(filePath) {
             const params = funcComponentMatch[2];
 
             if (!hasContent) {
-                report += `\n${'='.repeat(70)}\n`;
-                report += `📁 FILE: ${relativePath}\n`;
-                report += `${'='.repeat(70)}\n`;
+                report += ` FILE: ${relativePath}\n`;
                 hasContent = true;
             }
 
             report += `\n  🧩 COMPONENT: ${name}\n`;
-            report += `  📍 Location: Line ${i + 1}\n`;
-            report += `  📋 Type: React Function Component\n`;
+            report += `   Location: Line ${i + 1}\n`;
+            report += `   Type: React Function Component\n`;
             
             if (jsdocDescription) {
-                report += `  📝 Description: ${jsdocDescription}\n`;
+                report += `   Description: ${jsdocDescription}\n`;
             }
 
             // Extract props from params
@@ -238,7 +234,7 @@ function analyzeFile(filePath) {
                 
                 if (typeDefinitions[propsType]) {
                     const def = typeDefinitions[propsType];
-                    report += `  📥 INPUTS (Props: ${propsType}):\n`;
+                    report += `   INPUTS (Props: ${propsType}):\n`;
                     if (def.props.length > 0) {
                         for (const prop of def.props) {
                             const optional = prop.optional ? ' (optional)' : '';
@@ -246,14 +242,14 @@ function analyzeFile(filePath) {
                         }
                     }
                 } else {
-                    report += `  📥 INPUTS: ${params}\n`;
+                    report += `   INPUTS: ${params}\n`;
                 }
             } else {
-                report += `  📥 INPUTS: ${params || '(none)'}\n`;
+                report += `   INPUTS: ${params || '(none)'}\n`;
             }
             
-            report += `  📤 OUTPUT: JSX.Element\n`;
-            report += `  🎨 DISPLAYS: Renders React UI component\n`;
+            report += `   OUTPUT: JSX.Element\n`;
+            report += `   DISPLAYS: Renders React UI component\n`;
             totalComponents++;
             continue;
         }
@@ -266,22 +262,20 @@ function analyzeFile(filePath) {
             const returnType = (funcMatch[3] || 'void').trim();
 
             if (!hasContent) {
-                report += `\n${'='.repeat(70)}\n`;
-                report += `📁 FILE: ${relativePath}\n`;
-                report += `${'='.repeat(70)}\n`;
+                report += ` FILE: ${relativePath}\n`;
                 hasContent = true;
             }
 
-            report += `\n  🔧 FUNCTION: ${name}\n`;
-            report += `  📍 Location: Line ${i + 1}\n`;
+            report += `\n   FUNCTION: ${name}\n`;
+            report += `   Location: Line ${i + 1}\n`;
             
             if (jsdocDescription) {
-                report += `  📝 Description: ${jsdocDescription}\n`;
+                report += `   Description: ${jsdocDescription}\n`;
             }
             
-            report += `  📥 INPUTS: ${params || '(none)'}\n`;
-            report += `  📤 OUTPUT: ${returnType}\n`;
-            report += `  🎨 DISPLAYS: Returns ${returnType === 'void' ? 'nothing (side effects only)' : returnType}\n`;
+            report += `   INPUTS: ${params || '(none)'}\n`;
+            report += `   OUTPUT: ${returnType}\n`;
+            report += `   DISPLAYS: Returns ${returnType === 'void' ? 'nothing (side effects only)' : returnType}\n`;
             totalFunctions++;
             continue;
         }
@@ -299,22 +293,20 @@ function analyzeFile(filePath) {
             const returnType = (arrowMatch[3] || 'unknown').trim();
 
             if (!hasContent) {
-                report += `\n${'='.repeat(70)}\n`;
-                report += `📁 FILE: ${relativePath}\n`;
-                report += `${'='.repeat(70)}\n`;
+                report += ` FILE: ${relativePath}\n`;
                 hasContent = true;
             }
 
-            report += `\n  🔧 ARROW FUNCTION: ${name}\n`;
-            report += `  📍 Location: Line ${i + 1}\n`;
+            report += `\n   ARROW FUNCTION: ${name}\n`;
+            report += `   Location: Line ${i + 1}\n`;
             
             if (jsdocDescription) {
-                report += `  📝 Description: ${jsdocDescription}\n`;
+                report += `   Description: ${jsdocDescription}\n`;
             }
             
-            report += `  📥 INPUTS: ${params || '(none)'}\n`;
-            report += `  📤 OUTPUT: ${returnType}\n`;
-            report += `  🎨 DISPLAYS: Returns ${returnType === 'void' ? 'nothing' : returnType}\n`;
+            report += `   INPUTS: ${params || '(none)'}\n`;
+            report += `   OUTPUT: ${returnType}\n`;
+            report += `   DISPLAYS: Returns ${returnType === 'void' ? 'nothing' : returnType}\n`;
             totalFunctions++;
             continue;
         }
@@ -322,8 +314,7 @@ function analyzeFile(filePath) {
 
     // Report interfaces and types for this file
     if (hasContent && Object.keys(typeDefinitions).length > 0) {
-        report += `\n  ${'─'.repeat(60)}\n`;
-        report += `  📋 Interfaces & Types in this file:\n`;
+        report += `   Interfaces & Types in this file:\n`;
         for (const [name, def] of Object.entries(typeDefinitions)) {
             // Only show if used by components or exported
             const isExported = exports.includes(name);
@@ -331,7 +322,7 @@ function analyzeFile(filePath) {
             
             if (isExported || isPropType) {
                 report += `  ${'─'.repeat(60)}\n`;
-                report += `    📌 ${def.type.toUpperCase()}: ${name}\n`;
+                report += `     ${def.type.toUpperCase()}: ${name}\n`;
                 if (def.props.length > 0) {
                     for (const prop of def.props) {
                         const optional = prop.optional ? ' (optional)' : '';
